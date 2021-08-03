@@ -44,3 +44,7 @@ before_install:
 install: true
 
 script: mvn clean install -DskipTests -q -Pitests
+
+arch:
+  - s390x
+  - amd64
