@@ -117,8 +117,8 @@ public final class RpcConfiguration {
    * @return a list of configured ports.
    * @exception IOException is thrown if the property is not configured properly
    */
-  List<Integer> getServerPorts() throws IOException {
-    String errMsg = "Incorrect RPC server port configuration for HiveServer2";
+List<Integer> getServerPorts() {
+    String errMsg = "Malformed configuration value for " + HiveConf.ConfVars.SPARK_RPC_SERVER_PORT.varname;
     String portString = config.get(HiveConf.ConfVars.SPARK_RPC_SERVER_PORT.varname);
     ArrayList<Integer> ports = new ArrayList<Integer>();
     try {
@@ -127,7 +127,7 @@ public final class RpcConfiguration {
           String[] range = portRange.split("-");
           if (range.length == 0 || range.length > 2
               || (range.length == 2 && Integer.valueOf(range[0]) > Integer.valueOf(range[1]))) {
-            throw new IOException(errMsg);
+            throw new IllegalArgumentException(errMsg);
           }
           if (range.length == 1) {
             ports.add(Integer.valueOf(range[0]));
@@ -143,7 +143,7 @@ public final class RpcConfiguration {
 
       return ports;
     } catch(NumberFormatException e) {
-      throw new IOException(errMsg);
+      throw new IllegalArgumentException(errMsg, e);
     }
   }
 

@@ -1580,7 +1580,7 @@ public class TestOrcFile {
                                          OrcFile.writerOptions(conf)
                                          .inspector(inspector)
                                          .stripeSize(1000)
-                                         .compress(CompressionKind.SNAPPY)
+                                         .compress(CompressionKind.ZLIB)
                                          .bufferSize(100));
     Random rand = new Random(12);
     for(int i=0; i < 10000; ++i) {
@@ -1620,7 +1620,7 @@ public class TestOrcFile {
                                          OrcFile.writerOptions(conf)
                                          .inspector(inspector)
                                          .stripeSize(5000)
-                                         .compress(CompressionKind.SNAPPY)
+                                         .compress(CompressionKind.ZLIB)
                                          .bufferSize(1000)
                                          .rowIndexStride(0));
     Random rand = new Random(24);

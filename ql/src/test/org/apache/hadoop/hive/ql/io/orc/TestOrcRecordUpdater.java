@@ -203,7 +203,7 @@ public class TestOrcRecordUpdater {
           (MyRow.class, ObjectInspectorFactory.ObjectInspectorOptions.JAVA);
     }
     Properties tblProps = new Properties();
-    tblProps.setProperty("orc.compress", "SNAPPY");
+    tblProps.setProperty("orc.compress", "ZLIB");
     tblProps.setProperty("orc.compress.size", "8192");
     HiveConf.setIntVar(conf, HiveConf.ConfVars.HIVE_ORC_BASE_DELTA_RATIO, 4);
     AcidOutputFormat.Options options = new AcidOutputFormat.Options(conf)
@@ -231,7 +231,7 @@ public class TestOrcRecordUpdater {
     FileDump.main(new String[]{root.toUri().toString()});
     System.out.flush();
     String outDump = new String(myOut.toByteArray());
-    assertEquals(true, outDump.contains("Compression: SNAPPY"));
+    assertEquals(true, outDump.contains("Compression: ZLIB"));
     assertEquals(true, outDump.contains("Compression size: 2048"));
     System.setOut(origOut);
     updater.close(false);
